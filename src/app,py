@@ -1,0 +1,39 @@
+from flask import Flask, request, jsonify
+from datetime import datetime
+import os
+import json
+
+app = Flask(__name__)
+DATA_FOLDER = os.path.join(os.path.dirname(__file__), 'data')
+DATA_FILE = os.path.join(DATA_FOLDER, 'sensor_w_rs_001.json')
+
+# Crear carpeta /data si no existe
+os.makedirs(DATA_FOLDER, exist_ok=True)
+
+ultima_radiacion = {}
+
+@app.route('/radiacion', methods=['POST'])
+def recibir_radiacion():
+    global ultima_radiacion
+    data = request.get_json()
+    
+    if not data or "RADIACION_SOLAR" not in data:
+        return jsonify({"error": "JSON inválido o faltante"}), 400
+
+    # Agregar timestamp y actualizar la variable
+    ultima_radiacion = {
+        "RADIACION_SOLAR": data["RADIACION_SOLAR"],
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+
+    # Imprimir por consola
+    print(f"[{ultima_radiacion['timestamp']}] Radiación recibida: {data['RADIACION_SOLAR']} W/m²")
+
+    # Guardar en archivo JSON
+    with open(DATA_FILE, 'w') as f:
+        json.dump(ultima_radiacion, f, indent=2)
+
+    return jsonify({"mensaje": "Datos recibidos correctamente"}), 200
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80)
