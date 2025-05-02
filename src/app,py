@@ -12,7 +12,7 @@ os.makedirs(DATA_FOLDER, exist_ok=True)
 
 ultima_radiacion = {}
 
-@app.route('/radiacion', methods=['POST'])
+@app.route('/recibir', methods=['POST'])
 def recibir_radiacion():
     global ultima_radiacion
     data = request.get_json()
@@ -36,4 +36,4 @@ def recibir_radiacion():
     return jsonify({"mensaje": "Datos recibidos correctamente"}), 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=6451)

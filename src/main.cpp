@@ -11,7 +11,7 @@ const char* ssid = "UPBWiFi";
 const char* password = "";
 
 // Dirección del servidor Flask (ajústala con la IP pública de tu instancia EC2)
-const char* serverUrl = "http://54.242.101.217/radiacion"; // Usa /datos si ese es el endpoint en Flask
+const char* serverUrl = "http://3.80.227.87:6451/recibir"; // Usa /datos si ese es el endpoint en Flask
 
 float mediciones[5];
 int contador = 0;
