@@ -36,4 +36,8 @@ def recibir_radiacion():
     return jsonify({"mensaje": "Datos recibidos correctamente"}), 200
 
 if __name__ == '__main__':
+<<<<<<< HEAD:src/app,py
     app.run(host='0.0.0.0', port=6451)
+=======
+    app.run(host='0.0.0.0', port=80)
+>>>>>>> 708e9d6852c0cfd838ca4e461303e804013b6ad1:src/app.py
