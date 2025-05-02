@@ -1,0 +1,25 @@
+# Receptor
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY app.py .
+
+RUN pip install flask
+
+EXPOSE 6451
+
+CMD ["python", "app.py"]
+
+# Lector
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY app.py .
+
+RUN pip install flask
+
+EXPOSE 6452
+
+CMD ["python", "app.py"]
